@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIKA — Tableau de bord Admin</title>
+    <link rel="icon" type="image/png" href="img/Logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --night-blue: #2B2D7B;
+            --night-blue-light: #3d3fa3;
+            --amber: #D4A843;
+            --pearl: #F5F5F7;
+            --white: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-muted: #6b7280;
+            --success: #22c55e;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--pearl);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* Top bar */
+        .topbar {
+            background: var(--white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topbar-left img {
+            width: 28px;
+            height: 28px;
+        }
+
+        .topbar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--night-blue);
+        }
+
+        .topbar-badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: rgba(43, 45, 123, 0.08);
+            color: var(--night-blue);
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .topbar-right {
+            display: flex;
+            gap: 10px;
+        }
+
+        .topbar-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: 1.5px solid rgba(0, 0, 0, 0.1);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .topbar-btn:hover {
+            border-color: var(--night-blue);
+            color: var(--night-blue);
+        }
+
+        .topbar-btn.danger:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* Main content */
+        .dashboard {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px 24px;
+        }
+
+        /* Stats row */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 22px 24px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--night-blue);
+            letter-spacing: -0.02em;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            background: var(--white);
+            padding: 4px;
+            border-radius: 12px;
+            width: fit-content;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .tab {
+            padding: 10px 24px;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .tab.active {
+            background: var(--night-blue);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        /* Table panel */
+        .panel {
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .panel-count {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--pearl);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 12px 24px;
+            background: rgba(0, 0, 0, 0.01);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        td {
+            padding: 14px 24px;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            color: var(--text-dark);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(43, 45, 123, 0.02);
+        }
+
+        .email-cell {
+            font-weight: 500;
+            color: var(--night-blue);
+        }
+
+        .date-cell {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        .message-cell {
+            max-width: 400px;
+            line-height: 1.5;
+            font-size: 0.82rem;
+        }
+
+        .empty-state {
+            padding: 60px 24px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .empty-state svg {
+            margin-bottom: 14px;
+            opacity: 0.3;
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ccc;
+            padding: 4px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .delete-btn:hover {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .topbar {
+                padding: 12px 16px;
+            }
+
+            .dashboard {
+                padding: 16px 12px;
+            }
+
+            .topbar-badge {
+                display: none;
+            }
+
+            th,
+            td {
+                padding: 10px 14px;
+                font-size: 0.78rem;
+            }
+
+            .stat-value {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <img src="img/Logo.png" alt="SIKA">
+            <span class="topbar-title">SIKA Admin</span>
+            <span class="topbar-badge">Bêta</span>
+        </div>
+        <div class="topbar-right">
+            <button class="topbar-btn" id="exportBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Exporter CSV
+            </button>
+            <a href="index.html" class="topbar-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
+                Retour au site
+            </a>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard">
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-label">Inscriptions bêta</div>
+                <div class="stat-value" id="statSignups">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Retours reçus</div>
+                <div class="stat-value" id="statFeedbacks">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Jours restants</div>
+                <div class="stat-value" id="statDays">--</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="signups">Inscriptions</button>
+            <button class="tab" data-tab="feedbacks">Retours</button>
+        </div>
+
+        <!-- Signups table -->
+        <div class="tab-content active" id="tab-signups">
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">Adresses e-mail des bêta-testeurs</span>
+                    <span class="panel-count" id="signupCount">0 inscrit(s)</span>
+                </div>
+                <div id="signupsTable"></div>
+            </div>
+        </div>
+
+        <!-- Feedbacks table -->
+        <div class="tab-content" id="tab-feedbacks">
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">Retours des utilisateurs</span>
+                    <span class="panel-count" id="feedbackCount">0 retour(s)</span>
+                </div>
+                <div id="feedbacksTable"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ======================
+        // DATA
+        // ======================
+        function getSignups() {
+            return JSON.parse(localStorage.getItem('sika_signups') || '[]');
+        }
+
+        function getFeedbacks() {
+            return JSON.parse(localStorage.getItem('sika_feedbacks') || '[]');
+        }
+
+        function formatDate(iso) {
+            const d = new Date(iso);
+            return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })
+                + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // ======================
+        // RENDER
+        // ======================
+        function renderSignups() {
+            const data = getSignups();
+            const container = document.getElementById('signupsTable');
+            document.getElementById('statSignups').textContent = data.length;
+            document.getElementById('signupCount').textContent = data.length + ' inscrit(s)';
+
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                        <p>Aucune inscription pour le moment</p>
+                    </div>`;
+                return;
+            }
+
+            let html = '<table><thead><tr><th>#</th><th>Email</th><th>Date</th><th></th></tr></thead><tbody>';
+            data.forEach((item, i) => {
+                html += `<tr>
+                    <td class="date-cell">${i + 1}</td>
+                    <td class="email-cell">${item.email}</td>
+                    <td class="date-cell">${formatDate(item.date)}</td>
+                    <td><button class="delete-btn" onclick="deleteSignup(${i})" title="Supprimer">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                    </button></td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function renderFeedbacks() {
+            const data = getFeedbacks();
+            const container = document.getElementById('feedbacksTable');
+            document.getElementById('statFeedbacks').textContent = data.length;
+            document.getElementById('feedbackCount').textContent = data.length + ' retour(s)';
+
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        <p>Aucun retour pour le moment</p>
+                    </div>`;
+                return;
+            }
+
+            let html = '<table><thead><tr><th>#</th><th>Nom</th><th>Email</th><th>Message</th><th>Date</th><th></th></tr></thead><tbody>';
+            data.forEach((item, i) => {
+                html += `<tr>
+                    <td class="date-cell">${i + 1}</td>
+                    <td>${item.name}</td>
+                    <td class="email-cell">${item.email}</td>
+                    <td class="message-cell">${item.message}</td>
+                    <td class="date-cell">${formatDate(item.date)}</td>
+                    <td><button class="delete-btn" onclick="deleteFeedback(${i})" title="Supprimer">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                    </button></td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        // ======================
+        // DELETE
+        // ======================
+        function deleteSignup(index) {
+            if (!confirm('Supprimer cette inscription ?')) return;
+            const data = getSignups();
+            data.splice(index, 1);
+            localStorage.setItem('sika_signups', JSON.stringify(data));
+            renderSignups();
+        }
+
+        function deleteFeedback(index) {
+            if (!confirm('Supprimer ce retour ?')) return;
+            const data = getFeedbacks();
+            data.splice(index, 1);
+            localStorage.setItem('sika_feedbacks', JSON.stringify(data));
+            renderFeedbacks();
+        }
+
+        // ======================
+        // TABS
+        // ======================
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // ======================
+        // EXPORT CSV
+        // ======================
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const activeTab = document.querySelector('.tab.active').dataset.tab;
+
+            if (activeTab === 'signups') {
+                const data = getSignups();
+                if (data.length === 0) return alert('Aucune donnée à exporter.');
+                let csv = 'Email,Date\n';
+                data.forEach(d => { csv += `"${d.email}","${d.date}"\n`; });
+                downloadCSV(csv, 'sika_inscriptions.csv');
+            } else {
+                const data = getFeedbacks();
+                if (data.length === 0) return alert('Aucune donnée à exporter.');
+                let csv = 'Nom,Email,Message,Date\n';
+                data.forEach(d => { csv += `"${d.name}","${d.email}","${d.message.replace(/"/g, '""')}","${d.date}"\n`; });
+                downloadCSV(csv, 'sika_retours.csv');
+            }
+        });
+
+        function downloadCSV(content, filename) {
+            const blob = new Blob(['\uFEFF' + content], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // ======================
+        // COUNTDOWN
+        // ======================
+        const target = new Date('2026-03-31T23:59:59');
+        function updateDays() {
+            const diff = target - new Date();
+            document.getElementById('statDays').textContent = diff > 0 ? Math.floor(diff / (1000 * 60 * 60 * 24)) : '0';
+        }
+        updateDays();
+
+        // ======================
+        // INIT
+        // ======================
+        renderSignups();
+        renderFeedbacks();
+    </script>
+</body>
+
+</html>

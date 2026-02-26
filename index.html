@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIKA — Gérez vos finances, partout, à tout moment.</title>
+    <meta name="description"
+        content="SIKA vous aide à suivre vos dépenses, gérer vos budgets et analyser vos finances — le tout dans une seule application simple.">
+    <link rel="icon" type="image/png" href="img/Logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Decorative gradient blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- HEADER / NAV -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">
+                <img src="img/Logo.png" alt="SIKA Logo" class="logo-img">
+                <span class="logo-text">SIKA</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="nav-link active" data-slide="0">Gestion</a></li>
+                <li><a href="#" class="nav-link" data-slide="1">Intelligence IA</a></li>
+                <li><a href="#" class="nav-link" data-slide="2">Épargne</a></li>
+                <li><a href="#" class="nav-link" data-slide="3">Retours</a></li>
+            </ul>
+            <!-- Countdown to March 31 -->
+            <div class="countdown-wrapper">
+                <div class="countdown" id="countdown">
+                    <div class="countdown-unit">
+                        <span class="countdown-value" id="cd-days">--</span>
+                        <span class="countdown-suffix">j</span>
+                    </div>
+                    <span class="countdown-sep">:</span>
+                    <div class="countdown-unit">
+                        <span class="countdown-value" id="cd-hours">--</span>
+                        <span class="countdown-suffix">h</span>
+                    </div>
+                    <span class="countdown-sep">:</span>
+                    <div class="countdown-unit">
+                        <span class="countdown-value" id="cd-minutes">--</span>
+                        <span class="countdown-suffix">m</span>
+                    </div>
+                    <span class="countdown-sep">:</span>
+                    <div class="countdown-unit">
+                        <span class="countdown-value" id="cd-seconds">--</span>
+                        <span class="countdown-suffix">s</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main class="hero">
+        <!-- Text slider — no visible controls -->
+        <div class="hero-content">
+            <div class="slider" id="heroSlider">
+                <!-- Slide 1 -->
+                <div class="slide active">
+                    <h1 class="hero-title">
+                        Gérez vos Finances,<br>
+                        <span class="highlight">Partout</span> et à <span class="highlight">Tout Moment</span>.
+                    </h1>
+                    <p class="hero-subtitle">
+                        SIKA vous aide à suivre vos dépenses, gérer vos budgets, et analyser
+                        vos finances — le tout dans une seule application simple.
+                    </p>
+                </div>
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <h1 class="hero-title">
+                        Votre coach financier<br>
+                        <span class="highlight">personnel</span>. Propulsé par <span class="highlight">l'IA</span>.
+                    </h1>
+                    <p class="hero-subtitle">
+                        Photographiez vos reçus, l'IA s'occupe d'extraire les montants. Profitez
+                        d'analyses sur mesure qui prédisent vos dépenses pour ne plus jamais
+                        finir le mois dans le rouge.
+                    </p>
+                </div>
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <h1 class="hero-title">
+                        Rêvez grand.<br>
+                        <span class="highlight">Épargnez</span> sans <span class="highlight">effort</span>.
+                    </h1>
+                    <p class="hero-subtitle">
+                        Un nouveau projet ? Un voyage ? Créez vos objectifs personnalisés.
+                        SIKA suit votre progression en temps réel et vous motive à chaque
+                        étape de votre réussite.
+                    </p>
+                </div>
+                <!-- Slide 4 -->
+                <div class="slide">
+                    <h1 class="hero-title">
+                        Construisons <span class="highlight">SIKA</span><br>
+                        <span class="highlight">ensemble</span>.
+                    </h1>
+                    <p class="hero-subtitle">
+                        En tant que bêta-testeur, votre avis façonne l’application.
+                        Signalez un bug, suggérez une fonctionnalité ou partagez votre
+                        expérience — chaque retour nous rapproche du lancement officiel.
+                    </p>
+                </div>
+            </div>
+
+            <button type="button" class="btn-download-hero" id="openModal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Télécharger la bêta
+            </button>
+        </div>
+
+        <!-- Phone mockups at the bottom center -->
+        <div class="hero-mockup">
+            <div class="mockup-glow"></div>
+            <img src="img/mockup.png" alt="SIKA App Screenshots" class="mockup-img">
+        </div>
+    </main>
+
+    <!-- DOWNLOAD MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+
+            <div class="modal-logo">
+                <img src="img/Logo.png" alt="SIKA" width="40" height="40">
+            </div>
+
+            <!-- Step 1: Email form -->
+            <div class="modal-step" id="modalStep1">
+                <h2 class="modal-title">Accédez à la version bêta</h2>
+                <p class="modal-desc">
+                    Vous êtes sur le point de télécharger la <strong>version bêta</strong> de SIKA,
+                    avant le lancement officiel de l'application. Entrez votre adresse e-mail pour continuer.
+                </p>
+
+                <div class="modal-countdown">
+                    <span class="modal-countdown-label">Lancement officiel dans</span>
+                    <div class="modal-countdown-timer">
+                        <span id="modal-days">--</span>j
+                        <span class="modal-cd-sep">:</span>
+                        <span id="modal-hours">--</span>h
+                        <span class="modal-cd-sep">:</span>
+                        <span id="modal-min">--</span>m
+                        <span class="modal-cd-sep">:</span>
+                        <span id="modal-sec">--</span>s
+                    </div>
+                </div>
+
+                <form class="modal-form" id="betaForm">
+                    <div class="input-wrapper">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        <input type="email" id="emailInput" placeholder="votre@email.com" required autocomplete="email">
+                    </div>
+                    <button type="submit" class="modal-submit">
+                        Continuer
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </button>
+                </form>
+                <p class="modal-legal">En continuant, vous acceptez de recevoir des actualités sur SIKA.</p>
+            </div>
+
+            <!-- Step 2: Download -->
+            <div class="modal-step hidden" id="modalStep2">
+                <div class="modal-success-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                </div>
+                <h2 class="modal-title">Merci !</h2>
+                <p class="modal-desc">Votre accès bêta est prêt. Cliquez ci-dessous pour télécharger l'APK.</p>
+                <a href="App/Sika.apk" download class="modal-download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Télécharger SIKA.apk
+                </a>
+                <p class="modal-legal">Version bêta — Android uniquement</p>
+                <button type="button" class="btn-feedback-link" id="openFeedbackFromModal">
+                    Un retour à faire ? Cliquez ici
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEEDBACK MODAL -->
+    <div class="modal-overlay" id="feedbackOverlay">
+        <div class="modal">
+            <button class="modal-close" id="feedbackClose">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+
+            <div class="modal-logo">
+                <img src="img/Logo.png" alt="SIKA" width="40" height="40">
+            </div>
+
+            <!-- Feedback form -->
+            <div class="modal-step" id="feedbackStep1">
+                <h2 class="modal-title">Votre avis compte</h2>
+                <p class="modal-desc">
+                    Aidez-nous à améliorer SIKA en partageant votre expérience avec la version bêta.
+                </p>
+
+                <form class="feedback-form" id="feedbackForm">
+                    <div class="input-wrapper">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <input type="text" id="feedbackName" placeholder="Votre nom" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        <input type="email" id="feedbackEmail" placeholder="votre@email.com" required>
+                    </div>
+                    <div class="textarea-wrapper">
+                        <textarea id="feedbackMessage"
+                            placeholder="Décrivez votre expérience, signalez un bug, ou suggérez une amélioration..."
+                            rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="modal-submit" style="width:100%;justify-content:center;">
+                        Envoyer mon retour
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Feedback success -->
+            <div class="modal-step hidden" id="feedbackStep2">
+                <div class="modal-success-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                </div>
+                <h2 class="modal-title">Merci pour votre retour !</h2>
+                <p class="modal-desc">Votre avis nous aide à construire une meilleure application. À bientôt sur SIKA !
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating feedback button + label -->
+    <div class="fab-wrapper">
+        <div class="fab-label">
+            <span>Votre avis compte</span>
+            <svg class="fab-arrow" width="50" height="40" viewBox="0 0 50 40" fill="none">
+                <path d="M5 5 C 15 5, 30 5, 38 18 C 42 24, 44 30, 44 36" stroke="#2B2D7B" stroke-width="1.8"
+                    stroke-linecap="round" fill="none" stroke-dasharray="3 3" />
+                <path d="M40 32 L44 38 L48 30" stroke="#2B2D7B" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" fill="none" />
+            </svg>
+        </div>
+        <button class="fab-feedback" id="fabFeedback" title="Donnez votre avis">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // ======================
+        // COUNTDOWN to March 31
+        // ======================
+        const targetDate = new Date('2026-03-31T23:59:59');
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('cd-days').textContent = '00';
+                document.getElementById('cd-hours').textContent = '00';
+                document.getElementById('cd-minutes').textContent = '00';
+                document.getElementById('cd-seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ======================
+        // TEXT SLIDER + NAV SYNC
+        // ======================
+        const slides = document.querySelectorAll('#heroSlider .slide');
+        const navLinks = document.querySelectorAll('#navLinks .nav-link');
+        let currentSlide = 0;
+        const slideInterval = 5000; // 5 seconds
+
+        function goToSlide(index) {
+            // Fade out current
+            slides[currentSlide].classList.remove('active');
+            slides[currentSlide].classList.add('exit');
+            navLinks[currentSlide].classList.remove('active');
+
+            // Move to target
+            currentSlide = index;
+
+            // Fade in next + highlight nav
+            slides[currentSlide].classList.add('active');
+            navLinks[currentSlide].classList.add('active');
+
+            // Clean up exit class after animation
+            setTimeout(() => {
+                slides.forEach(s => s.classList.remove('exit'));
+            }, 700);
+        }
+
+        function nextSlide() {
+            goToSlide((currentSlide + 1) % slides.length);
+        }
+
+        // Click on nav link to jump to slide
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const idx = parseInt(link.dataset.slide);
+                if (idx !== currentSlide) {
+                    clearInterval(autoSlide);
+                    goToSlide(idx);
+                    autoSlide = setInterval(nextSlide, slideInterval);
+                }
+            });
+        });
+
+        let autoSlide = setInterval(nextSlide, slideInterval);
+
+        // ======================
+        // MODAL
+        // ======================
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const openModal = document.getElementById('openModal');
+        const betaForm = document.getElementById('betaForm');
+        const modalStep1 = document.getElementById('modalStep1');
+        const modalStep2 = document.getElementById('modalStep2');
+
+        // Modal countdown sync
+        function updateModalCountdown() {
+            const now = new Date();
+            const diff = targetDate - now;
+            if (diff <= 0) return;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('modal-days').textContent = String(d).padStart(2, '0');
+            document.getElementById('modal-hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('modal-min').textContent = String(m).padStart(2, '0');
+            document.getElementById('modal-sec').textContent = String(s).padStart(2, '0');
+        }
+        setInterval(updateModalCountdown, 1000);
+
+        openModal.addEventListener('click', () => {
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            updateModalCountdown();
+        });
+
+        modalClose.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
+
+        betaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+
+            // Save email to localStorage
+            const signups = JSON.parse(localStorage.getItem('sika_signups') || '[]');
+            signups.push({ email, date: new Date().toISOString() });
+            localStorage.setItem('sika_signups', JSON.stringify(signups));
+
+            // Show download step
+            modalStep1.classList.add('hidden');
+            modalStep2.classList.remove('hidden');
+        });
+
+        // ======================
+        // FEEDBACK MODAL
+        // ======================
+        const feedbackOverlay = document.getElementById('feedbackOverlay');
+        const feedbackClose = document.getElementById('feedbackClose');
+        const feedbackForm = document.getElementById('feedbackForm');
+        const feedbackStep1 = document.getElementById('feedbackStep1');
+        const feedbackStep2 = document.getElementById('feedbackStep2');
+        const fabFeedback = document.getElementById('fabFeedback');
+        const openFeedbackFromModal = document.getElementById('openFeedbackFromModal');
+
+        function openFeedback() {
+            modalOverlay.classList.remove('active');
+            feedbackOverlay.classList.add('active');
+        }
+
+        fabFeedback.addEventListener('click', openFeedback);
+        openFeedbackFromModal.addEventListener('click', openFeedback);
+
+        feedbackClose.addEventListener('click', () => {
+            feedbackOverlay.classList.remove('active');
+        });
+
+        feedbackOverlay.addEventListener('click', (e) => {
+            if (e.target === feedbackOverlay) {
+                feedbackOverlay.classList.remove('active');
+            }
+        });
+
+        feedbackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('feedbackName').value;
+            const email = document.getElementById('feedbackEmail').value;
+            const message = document.getElementById('feedbackMessage').value;
+
+            // Save feedback to localStorage
+            const feedbacks = JSON.parse(localStorage.getItem('sika_feedbacks') || '[]');
+            feedbacks.push({ name, email, message, date: new Date().toISOString() });
+            localStorage.setItem('sika_feedbacks', JSON.stringify(feedbacks));
+
+            feedbackStep1.classList.add('hidden');
+            feedbackStep2.classList.remove('hidden');
+        });
+
+        // ======================
+        // HIDDEN ADMIN ACCESS (click logo 5 times)
+        // ======================
+        let logoClicks = 0;
+        let logoTimer = null;
+        document.querySelector('.logo').addEventListener('click', (e) => {
+            e.preventDefault();
+            logoClicks++;
+            clearTimeout(logoTimer);
+            logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
+            if (logoClicks >= 5) {
+                logoClicks = 0;
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+
+</html>
