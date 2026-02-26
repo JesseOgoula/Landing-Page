@@ -112,9 +112,11 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 10px 8px 10px 24px;
+    position: relative;
     background: rgba(255, 255, 255, 0.72);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -147,6 +149,9 @@ body::before {
     display: flex;
     list-style: none;
     gap: 4px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .nav-link {
