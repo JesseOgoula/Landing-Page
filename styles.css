@@ -882,6 +882,10 @@ body::before {
         padding: 10px 12px;
     }
 
+    .slide {
+        gap: 65px;
+    }
+
     .nav {
         padding: 8px 6px 8px 16px;
     }
@@ -904,7 +908,8 @@ body::before {
     }
 
     .hero-content {
-        gap: 14px;
+        gap: 44px;
+        padding: 94px 9px;
     }
 
     .hero-title {
