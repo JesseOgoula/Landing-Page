@@ -931,12 +931,12 @@ body::before {
 
     .hero-content {
         gap: 20px;
-        padding: 85px 16px;
+        padding: 75px 16px;
         flex-shrink: 0;
     }
 
     .slider {
-        min-height: 185px;
+        min-height: 225px;
     }
 
     .slide {
@@ -950,7 +950,7 @@ body::before {
 
     .hero-subtitle {
         font-size: 0.86rem;
-        max-width: 340px;
+        max-width: 100%;
         line-height: 1.6;
         margin-top: 6px;
     }
