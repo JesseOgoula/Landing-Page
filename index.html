@@ -437,9 +437,27 @@
             signups.push({ email, date: new Date().toISOString() });
             localStorage.setItem('sika_signups', JSON.stringify(signups));
 
-            // Show download step
+            // Show download step immediately (don't wait for API)
             modalStep1.classList.add('hidden');
             modalStep2.classList.remove('hidden');
+
+            // Send welcome email via Brevo (in background, non-blocking)
+            fetch('https://edlzwznspatuvoyyltwf.supabase.co/functions/v1/send-welcome-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('✓ Brevo: welcome email sent to', email);
+                    } else {
+                        console.warn('⚠ Brevo warning:', data.warning || data.error);
+                    }
+                })
+                .catch(err => {
+                    console.error('✗ Brevo API error:', err);
+                });
         });
 
         // ======================
